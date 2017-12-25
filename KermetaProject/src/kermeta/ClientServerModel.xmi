@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/XMI" xmlns:ClientServer="platform:/resource/KermetaProject/src/kermeta/ClientServer.ecore" xmi:version="2.0">
+<ClientServer:Server name="MailServer" IP="192.160.44.221" implements="/2 /4 /6 /8 /10" connectedTo="/1 /3 /5 /7 /9"/>
+<ClientServer:Client name="Client1" browser="Chrome" inUse="/2" connectedTo="/0"/>
+<ClientServer:Interface name="Interface1" isImplementedBy="/0" usedBy="/1"/>
+<ClientServer:Client name="Client2" browser="Opera" inUse="/4" connectedTo="/0"/>
+<ClientServer:Interface name="Interface2" isImplementedBy="/0" usedBy="/3"></ClientServer:Interface>
+<ClientServer:Client name="Client3" browser="Firefox" inUse="/6" connectedTo="/0"/>
+<ClientServer:Interface name="Interface3" isImplementedBy="/0" usedBy="/5"></ClientServer:Interface>
+<ClientServer:Client name="Client4" browser="Chrome" inUse="/8" connectedTo="/0"/>
+<ClientServer:Interface name="Interface4" isImplementedBy="/0" usedBy="/7"></ClientServer:Interface>
+<ClientServer:Client name="Client5" browser="Explorer" inUse="/10" connectedTo="/0"/>
+<ClientServer:Interface name="Interface5" isImplementedBy="/0" usedBy="/9"></ClientServer:Interface>
+</xmi:XMI>

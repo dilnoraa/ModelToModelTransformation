@@ -1,0 +1,56 @@
+/* $Id: $
+ * Creation date: November 3, 2007
+ * License:
+ * Copyright:
+ * Authors:
+ */
+@mainClass "ForClientServer::Main"
+@mainOperation "main"
+
+
+package ForClientServer;
+
+require kermeta
+require "ClientServer.ecore"
+
+using kermeta::standard
+using kermeta::persistence
+
+using ClientServer
+
+class Main
+{
+   operation main() : Void is do 
+		
+		var server : Server 
+	
+	end
+	
+	//file'in ismi "ClientServerModel.xmi"
+	operation loadModel(file : String) : Server is do
+		var server : Server
+		// EMF repository nesnesi oluþturuluyor	 
+		var repository : EMFRepository init EMFRepository.new
+ 
+ 		var resource : EMFResource 
+ 		
+ 		//  var olan model ve metamodel URI Stringlerden EMF resource oluþturulur
+ 		 resource ?= repository.createResource(file, "platform:/resource/KermetaProject/src/kermeta/ClientServer.ecore")
+ 		resource.load
+ 		
+ 		// ?= þartlý atamadýr. Yalnýzca, iletilen nesne doðru türdeyse atama yapmaya izin verir.
+ 		// Doðru türde deðilse, atanan deðer Void olur. 
+ 		server ?= resource.instances.one	
+ 		result := server	
+	end
+
+	operation viewModel (server : Server) : Void is do
+		stdio.write("  Server Name is "+server.name+" with "+ server.IP+ " IP address")
+		stdio.writeln(" connected to : ")
+		
+		//collection içinde bulunan tüm clientlerin bilgileri ekrana yazdýrýr
+		server.connectedTo.each{ c | stdio.writeln( " --- "  + c.name+ " with " + c.browser + " browser by " + c.inUse.name) } 
+	end
+
+	
+}

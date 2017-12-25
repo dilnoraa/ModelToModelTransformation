@@ -1,0 +1,43 @@
+
+package ClientServer;
+
+require "kermeta"
+using kermeta::standard
+
+abstract class NameElement
+{
+	attribute name : String
+
+}
+
+// NameElement'ten name degiskeni alýr
+class Interface inherits NameElement 
+{
+	reference isImplementedBy : Server#implements
+
+	reference usedBy : Client#inUse
+
+}
+
+// NameElement'ten name degiskeni alýr
+class Client inherits NameElement 
+{
+
+    attribute browser : String
+    
+	reference inUse : Interface#usedBy
+
+	reference connectedTo : Server#connectedTo
+
+}
+
+// NameElement'ten name degiskeni alýr
+class Server inherits NameElement 
+{
+    attribute IP : String
+    
+	reference implements : seq Interface[1..*]#isImplementedBy // diziye sýralý bir sekilde ekleme yapar, duplicate allows 
+
+	reference connectedTo : Client[1..*]#connectedTo
+
+}

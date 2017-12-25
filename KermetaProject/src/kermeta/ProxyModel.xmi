@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ByProxy="platform:/resource/KermetaProject/src/kermeta/ByProxy.ecore">
+  <ByProxy:Server name="MailServer" IP="192.160.44.221" connectedTo="/1 /4 /7 /10 /13"/>
+  <ByProxy:Proxy name="Client1MailServer(Proxy) " clientConnect="/2" serverConnect="/0" implements="/3"/>
+  <ByProxy:Client name="Client1" browser="Chrome" inUse="/3" connectedTo="/1"/>
+  <ByProxy:Interface name="Interface1" isImplementedBy="/1" usedBy="/2"/>
+  <ByProxy:Proxy name="Client2MailServer(Proxy) " clientConnect="/5" serverConnect="/0" implements="/6"/>
+  <ByProxy:Client name="Client2" browser="Opera" inUse="/6" connectedTo="/4"/>
+  <ByProxy:Interface name="Interface2" isImplementedBy="/4" usedBy="/5"/>
+  <ByProxy:Proxy name="Client3MailServer(Proxy) " clientConnect="/8" serverConnect="/0" implements="/9"/>
+  <ByProxy:Client name="Client3" browser="Firefox" inUse="/9" connectedTo="/7"/>
+  <ByProxy:Interface name="Interface3" isImplementedBy="/7" usedBy="/8"/>
+  <ByProxy:Proxy name="Client4MailServer(Proxy) " clientConnect="/11" serverConnect="/0" implements="/12"/>
+  <ByProxy:Client name="Client4" browser="Chrome" inUse="/12" connectedTo="/10"/>
+  <ByProxy:Interface name="Interface4" isImplementedBy="/10" usedBy="/11"/>
+  <ByProxy:Proxy name="Client5MailServer(Proxy) " clientConnect="/14" serverConnect="/0" implements="/15"/>
+  <ByProxy:Client name="Client5" browser="Explorer" inUse="/15" connectedTo="/13"/>
+  <ByProxy:Interface name="Interface5" isImplementedBy="/13" usedBy="/14"/>
+</xmi:XMI>

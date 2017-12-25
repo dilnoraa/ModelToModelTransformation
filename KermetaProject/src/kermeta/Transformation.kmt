@@ -1,0 +1,101 @@
+
+@mainClass "Transformation::Main"
+@mainOperation "main"
+
+
+package Transformation;
+
+require kermeta
+
+//require "platform:/resource/KermetaProject/metamodel/ClientServer.ecore"
+//require "platform:/resource/KermetaProject/metamodel/ByProxy.ecore"
+
+
+//require "platform:/resource/KermetaProject/metamodel/ForClientServer.kmt"
+//require "platform:/resource/KermetaProject/metamodel/ForByProxy.kmt"
+
+
+require "ClientServer.ecore"
+require "ByProxy.ecore"
+
+
+
+require "ForClientServer.kmt"
+require "ForByProxy.kmt"
+
+using kermeta::standard
+using kermeta::persistence
+
+
+using ByProxy
+using ClientServer
+
+
+class Main
+{
+
+  operation main() : Void is do 
+		
+		
+		var ForCS : ForClientServer::Main init ForClientServer::Main.new
+		var ForProxy : ForByProxy::Main init ForByProxy::Main.new
+ 	
+ 		var sourceServer : ClientServer::Server
+ 		var outputServer : ByProxy::Server
+ 		
+ 		
+ 		sourceServer := ForCS.loadModel("platform:/resource/KermetaProject/src/kermeta/ClientServerModel.xmi")
+ 		stdio.writeln("\n *********** INPUT  MODEL **************\n")
+ 		ForCS.viewModel(sourceServer)
+ 		
+ 		
+ 		outputServer := transformationModel(sourceServer)
+ 
+		stdio.writeln("\n\n\n ********** OUTPUT MODEL (after transformation) ************\n")
+		ForProxy.viewModel(outputServer)
+	
+		stdio.writeln("\n ******* Saved output model into KermetaProject with ProxyModel name *********\n")
+		ForProxy.saveModel("platform:/resource/KermetaProject/src/kermeta/ProxyModel.xmi", outputServer)
+
+	end
+	
+	
+	                       // parametre olarak inputModel gelir   ve   outputModel ise döndürülen objedir
+	operation transformationModel(server : ClientServer::Server) : ByProxy::Server is do
+		
+		
+		var outputServer : ByProxy::Server init ByProxy::Server.new
+		outputServer.name := server.name
+		outputServer.IP:=server.IP
+	
+		   server.connectedTo.each { client | 
+			var outputClient : ByProxy::Client init ByProxy::Client.new // yeni objeler yaratýlýr
+			var outputInterface : ByProxy::Interface init ByProxy::Interface.new
+			var proxy : ByProxy::Proxy init ByProxy::Proxy.new
+			
+			
+			// atama iþlemi yapýlýr 
+			outputClient.name := client.name
+			outputClient.browser:=client.browser
+			outputInterface.name := client.inUse.name
+			proxy.name := client.name + server.name+"(Proxy) "
+			
+			outputClient.connectedTo := proxy
+			outputClient.inUse := outputInterface
+			
+			outputInterface.isImplementedBy := proxy
+			outputInterface.usedBy := outputClient
+			
+			proxy.implements := outputInterface
+			proxy.clientConnect := outputClient
+			proxy.serverConnect := outputServer
+			
+			outputServer.connectedTo.add(proxy) 
+		}		
+		result := outputServer
+	end
+	
+	
+	
+	
+}

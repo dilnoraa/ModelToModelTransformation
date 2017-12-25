@@ -1,0 +1,54 @@
+
+package ByProxy;
+
+require "kermeta"
+
+
+using kermeta::standard
+
+abstract class NameElement
+{
+	attribute name :String
+
+}
+
+// NameElement'ten name degiskeni alýr
+class Interface inherits NameElement
+{
+	reference isImplementedBy : Proxy#implements
+
+	reference usedBy : Client#inUse
+
+}
+
+// NameElement'ten name degiskeni alýr
+class Proxy inherits NameElement
+{
+	reference clientConnect : Client#connectedTo // Client ve Proxy arasýndaki iliþki 
+
+	reference serverConnect : Server#connectedTo // Server ve Proxy arasýndaki iliþki 
+
+	reference implements : Interface#isImplementedBy // Interface ve Proxy arasýndaki iliþki 
+
+}
+
+// NameElement'ten name degiskeni alýr
+class Client inherits NameElement
+{
+    attribute browser: String
+    
+	reference inUse : Interface#usedBy
+
+	reference connectedTo : Proxy#clientConnect
+
+}
+
+// NameElement'ten name degiskeni alýr
+class Server inherits NameElement
+{
+    attribute IP: String
+    
+	reference connectedTo : Proxy[1..*]#serverConnect
+	 // Server ve Proxy arasýndaki iliþki, Proxy sayýsý 1 den fazla olabýlýr
+
+}
