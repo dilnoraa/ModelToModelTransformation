@@ -1,9 +1,4 @@
-/* $Id: $
- * Creation date: November 3, 2007
- * License:
- * Copyright:
- * Authors:
- */
+
 @mainClass "ForByProxy::Main"
 @mainOperation "main"
 
@@ -24,16 +19,16 @@ class Main
  
 	  end
 
-// yeni oluþacak modelin kaydedilmesi
+// yeni oluÃ¾acak modelin kaydedilmesi
 // file==...proxyModel.xmi ve server==outputServer
 	operation saveModel(file : String, server : Server) : Void is do
 		var repository : EMFRepository init EMFRepository.new 
 		var resource : EMFResource
-		//yeni bir dosya oluþturulur (ProxyModel.xmi)
+		//yeni bir dosya oluÃ¾turulur (ProxyModel.xmi)
 		resource ?= repository.createResource(file, "platform:/resource/KermetaProject/src/kermeta/ByProxy.ecore")
 		
 		
-		// bu dosyaya server ve servere baglý olan tüm proxy'ler eklenir
+		// bu dosyaya server ve servere baglÃ½ olan tÃ¼m proxy'ler eklenir
 		resource.add(server)
 		server.connectedTo.each { p | 
 			resource.add(p) 	
@@ -43,7 +38,7 @@ class Main
  		resource.save()
  	end
 
-// yeni oluþacak modelin Console'de görüntülenmesi
+// yeni oluÃ¾acak modelin Console'de gÃ¶rÃ¼ntÃ¼lenmesi
 	operation viewModel(server : Server) : Void is do
 		stdio.write("  Server Name is "+server.name +" with " + server.IP)
 		stdio.writeln(" address connected to : ")
