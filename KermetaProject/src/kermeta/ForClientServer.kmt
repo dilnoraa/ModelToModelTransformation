@@ -1,9 +1,4 @@
-/* $Id: $
- * Creation date: November 3, 2007
- * License:
- * Copyright:
- * Authors:
- */
+
 @mainClass "ForClientServer::Main"
 @mainOperation "main"
 
@@ -29,17 +24,17 @@ class Main
 	//file'in ismi "ClientServerModel.xmi"
 	operation loadModel(file : String) : Server is do
 		var server : Server
-		// EMF repository nesnesi oluşturuluyor	 
+		// EMF repository nesnesi oluÃ¾turuluyor	 
 		var repository : EMFRepository init EMFRepository.new
  
  		var resource : EMFResource 
  		
- 		//  var olan model ve metamodel URI Stringlerden EMF resource oluşturulur
+ 		//  var olan model ve metamodel URI Stringlerden EMF resource oluÃ¾turulur
  		 resource ?= repository.createResource(file, "platform:/resource/KermetaProject/src/kermeta/ClientServer.ecore")
  		resource.load
  		
- 		// ?= şartlı atamadır. Yalnızca, iletilen nesne doğru türdeyse atama yapmaya izin verir.
- 		// Doğru türde değilse, atanan değer Void olur. 
+ 		// ?= Ã¾artlÃ½ atamadÃ½r. YalnÃ½zca, iletilen nesne doÃ°ru tÃ¼rdeyse atama yapmaya izin verir.
+ 		// DoÃ°ru tÃ¼rde deÃ°ilse, atanan deÃ°er Void olur. 
  		server ?= resource.instances.one	
  		result := server	
 	end
@@ -48,7 +43,7 @@ class Main
 		stdio.write("  Server Name is "+server.name+" with "+ server.IP+ " IP address")
 		stdio.writeln(" connected to : ")
 		
-		//collection içinde bulunan tüm clientlerin bilgileri ekrana yazdırır
+		//collection iÃ§inde bulunan tÃ¼m clientlerin bilgileri ekrana yazdÃ½rÃ½r
 		server.connectedTo.each{ c | stdio.writeln( " --- "  + c.name+ " with " + c.browser + " browser by " + c.inUse.name) } 
 	end
 
